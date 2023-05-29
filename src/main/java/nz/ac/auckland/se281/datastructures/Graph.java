@@ -11,16 +11,32 @@ import java.util.Set;
  * @param <T> The type of each vertex, that have a total ordering.
  */
 public class Graph<T extends Comparable<T>> {
-  public Graph(Set<T> verticies, Set<Edge<T>> edges) {}
+
+  private Set<T> verticies;
+  private Set<Edge<T>> edges;
+
+  public Graph(Set<T> verticies, Set<Edge<T>> edges) {
+    this.verticies = verticies;
+    this.edges = edges;
+  }
 
   public Set<T> getRoots() {
-    // TODO: Task 1.
     throw new UnsupportedOperationException();
   }
 
   public boolean isReflexive() {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+    for (T vertex : verticies) {
+      Boolean hasLoop = false;
+      for (Edge<T> edge : edges) {
+        if (edge.getSource().equals(vertex) && edge.getDestination().equals(vertex)) {
+          hasLoop = true;
+        }
+      }
+      if (!hasLoop) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public boolean isSymmetric() {

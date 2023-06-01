@@ -76,13 +76,21 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public boolean isAntiSymmetric() {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+    for (Edge<T> edge : edges) {
+      for (Edge<T> edge2 : edges) {
+        if (edge.getSource().equals(edge2.getDestination())
+            && edge.getDestination().equals(edge2.getSource())) {
+          if (!edge.getSource().equals(edge.getDestination())) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
   }
 
   public boolean isEquivalence() {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+    return isReflexive() && isSymmetric() && isTransitive();
   }
 
   public Set<T> getEquivalenceClass(T vertex) {

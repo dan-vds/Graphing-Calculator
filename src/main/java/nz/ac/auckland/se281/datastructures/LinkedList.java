@@ -22,6 +22,10 @@ public class LinkedList<T> {
     }
   }
 
+  public T getFirst() {
+    return head.getData();
+  }
+
   public T get(int index) {
     Node<T> n = head;
     for (int i = 0; i <= index; i++) {
@@ -78,6 +82,12 @@ public class LinkedList<T> {
       return true;
     }
     return false;
+  }
+
+  public T removeFirst() {
+    Node<T> n = head;
+    head = n.getNext();
+    return n.getData();
   }
 
   public int indexOf(T data) {

@@ -8,15 +8,15 @@ public class Stack<T> {
   }
 
   public void push(T data) {
-    stack.insert(0, data);
+    stack.add(data);
   }
 
   public T pop() {
-    return stack.remove(0);
+    return stack.removeFirst();
   }
 
   public T peek() {
-    return stack.get(0);
+    return stack.getFirst();
   }
 
   public int size() {

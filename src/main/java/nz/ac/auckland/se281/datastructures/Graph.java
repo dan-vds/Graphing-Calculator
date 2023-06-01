@@ -122,18 +122,22 @@ public class Graph<T extends Comparable<T>> {
 
   public Set<T> getEquivalenceClass(T vertex) {
     Set<T> eqClass = new HashSet<>();
-    eqClass.add(vertex);
-    boolean moreVerticiesToCheck = true;
+    if (!isEquivalence()) {
+      return eqClass;
+    } else {
+      eqClass.add(vertex);
+      boolean moreVerticiesToCheck = true;
 
-    while (moreVerticiesToCheck) {
-      moreVerticiesToCheck = false;
-      for (Edge<T> edge : edges) {
-        T source = edge.getSource();
-        T destination = edge.getDestination();
+      while (moreVerticiesToCheck) {
+        moreVerticiesToCheck = false;
+        for (Edge<T> edge : edges) {
+          T source = edge.getSource();
+          T destination = edge.getDestination();
 
-        if (eqClass.contains(source) && !eqClass.contains(destination)) {
-          eqClass.add(destination);
-          moreVerticiesToCheck = true;
+          if (eqClass.contains(source) && !eqClass.contains(destination)) {
+            eqClass.add(destination);
+            moreVerticiesToCheck = true;
+          }
         }
       }
     }

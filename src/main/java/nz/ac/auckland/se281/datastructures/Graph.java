@@ -1,5 +1,6 @@
 package nz.ac.auckland.se281.datastructures;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,7 +22,18 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public Set<T> getRoots() {
-    throw new UnsupportedOperationException();
+    Set<T> roots = new HashSet<T>();
+    for (T vertex : verticies) {
+      boolean isRoot = true;
+      for (Edge<T> edge : edges) {
+        if (edge.getDestination().equals(vertex)) {
+          isRoot = false;
+        }
+      }
+      if (isRoot == true) {
+        roots.add(vertex);
+      }
+    }
   }
 
   public boolean isReflexive() {

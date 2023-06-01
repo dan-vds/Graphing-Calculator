@@ -34,6 +34,11 @@ public class Graph<T extends Comparable<T>> {
         roots.add(vertex);
       }
     }
+    if (this.isEquivalence()) {
+      Set<Set<T>> eqSet = new HashSet<>();
+      for (T vertex : verticies) {}
+    }
+    return roots;
   }
 
   public boolean isReflexive() {
@@ -106,8 +111,13 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public Set<T> getEquivalenceClass(T vertex) {
-    // TODO: Task 1.
-    throw new UnsupportedOperationException();
+    Set<T> eqClass = new HashSet<>();
+    for (Edge<T> edge : edges) {
+      if (edge.getSource().equals(vertex)) {
+        eqClass.add(edge.getDestination());
+      }
+    }
+    return eqClass;
   }
 
   public List<T> iterativeBreadthFirstSearch() {

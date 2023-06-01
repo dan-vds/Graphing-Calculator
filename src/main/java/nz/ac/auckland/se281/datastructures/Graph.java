@@ -1,5 +1,6 @@
 package nz.ac.auckland.se281.datastructures;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,7 +37,16 @@ public class Graph<T extends Comparable<T>> {
     }
     if (this.isEquivalence()) {
       Set<Set<T>> eqSet = new HashSet<>();
-      for (T vertex : verticies) {}
+      for (T vertex : verticies) {
+        Set<T> eqClass = getEquivalenceClass(vertex);
+        if (!eqSet.contains(eqClass)) {
+          eqSet.add(eqClass);
+        }
+      }
+      for (Set<T> eqClass : eqSet) {
+        T root = Collections.min(eqClass);
+        roots.add(root);
+      }
     }
     return roots;
   }
@@ -112,11 +122,22 @@ public class Graph<T extends Comparable<T>> {
 
   public Set<T> getEquivalenceClass(T vertex) {
     Set<T> eqClass = new HashSet<>();
-    for (Edge<T> edge : edges) {
-      if (edge.getSource().equals(vertex)) {
-        eqClass.add(edge.getDestination());
+    eqClass.add(vertex);
+    boolean moreVerticiesToCheck = true;
+
+    while (moreVerticiesToCheck) {
+      moreVerticiesToCheck = false;
+      for (Edge<T> edge : edges) {
+        T source = edge.getSource();
+        T destination = edge.getDestination();
+
+        if (eqClass.contains(source) && !eqClass.contains(destination)) {
+          eqClass.add(destination);
+          moreVerticiesToCheck = true;
+        }
       }
     }
+
     return eqClass;
   }
 

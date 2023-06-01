@@ -148,6 +148,7 @@ public class Graph<T extends Comparable<T>> {
 
   public List<T> iterativeBreadthFirstSearch() {
     List<T> visitedNodes = new ArrayList<>();
+    List<T> recentlyVisitedNodes = new ArrayList<>();
     Queue<T> queue = new Queue<>();
     Set<T> roots = getRoots();
     for (T vertex : roots) {
@@ -156,13 +157,20 @@ public class Graph<T extends Comparable<T>> {
         visitedNodes.add(vertex);
         while (!queue.isEmpty()) {
           T current = queue.dequeue();
-          if (!visitedNodes.contains(current)) {
-            visitedNodes.add(current);
+          if (!recentlyVisitedNodes.contains(current)) {
+            recentlyVisitedNodes.add(current);
           }
           for (Edge<T> edge : edges) {
-            if (edge.getSource().equals(current) && !visitedNodes.contains(edge.getDestination())) {
+            if (edge.getSource().equals(current)
+                && !recentlyVisitedNodes.contains(edge.getDestination())) {
               queue.enqueue(edge.getDestination());
-              visitedNodes.add(edge.getDestination());
+              recentlyVisitedNodes.add(edge.getDestination());
+            }
+          }
+          Collections.sort(recentlyVisitedNodes);
+          for (T node : recentlyVisitedNodes) {
+            if (!visitedNodes.contains(node)) {
+              visitedNodes.add(node);
             }
           }
         }

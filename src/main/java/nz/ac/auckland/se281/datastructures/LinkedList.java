@@ -90,6 +90,18 @@ public class LinkedList<T> {
     return n.getData();
   }
 
+  public void addLast(T data) {
+    Node<T> newNode = new Node<T>(data);
+    if (head == null) {
+      head = newNode;
+      tail = newNode;
+    } else {
+      newNode.setPrev(tail);
+      tail.setNext(newNode);
+      tail = newNode;
+    }
+  }
+
   public int indexOf(T data) {
     Node<T> n = head;
     int count = 0;

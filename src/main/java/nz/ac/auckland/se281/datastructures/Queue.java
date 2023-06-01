@@ -9,7 +9,7 @@ public class Queue<T> {
   }
 
   public void enqueue(T data) {
-    queue.insert(queue.size(), data);
+    queue.addLast(data);
   }
 
   public T dequeue() {

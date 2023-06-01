@@ -46,7 +46,7 @@ public class LinkedList<T> {
     }
   }
 
-  public void remove(int index) {
+  public T remove(int index) {
     Node<T> n = head;
     for (int i = 0; i <= index; i++) {
       if (i == index) {
@@ -59,6 +59,7 @@ public class LinkedList<T> {
       }
       n = n.getNext();
     }
+    return n.getData();
   }
 
   public int size() {

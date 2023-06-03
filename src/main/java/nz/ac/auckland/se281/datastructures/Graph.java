@@ -2,6 +2,8 @@ package nz.ac.auckland.se281.datastructures;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,10 +19,22 @@ public class Graph<T extends Comparable<T>> {
 
   private Set<T> verticies;
   private Set<Edge<T>> edges;
+  private HashMap<T, ArrayList<T>> adjacency;
 
   public Graph(Set<T> verticies, Set<Edge<T>> edges) {
     this.verticies = verticies;
     this.edges = edges;
+    adjacency = new HashMap<T, ArrayList<T>>();
+    ArrayList<T> nextVertices = new ArrayList<T>();
+    for (T vertex : verticies) {
+      for (Edge<T> edge : edges) {
+        if (edge.getSource() == vertex) {
+          nextVertices.add(edge.getDestination());
+        }
+      }
+      nextVertices.sort(Comparator.comparing(vertices2 -> Integer.parseInt(vertices2.toString())));
+      adjacency.put(vertex, nextVertices);
+    }
   }
 
   public Set<T> getRoots() {

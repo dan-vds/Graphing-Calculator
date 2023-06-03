@@ -25,8 +25,8 @@ public class Graph<T extends Comparable<T>> {
     this.verticies = verticies;
     this.edges = edges;
     adjacency = new HashMap<T, ArrayList<T>>();
-    ArrayList<T> nextVertices = new ArrayList<T>();
     for (T vertex : verticies) {
+      ArrayList<T> nextVertices = new ArrayList<T>();
       for (Edge<T> edge : edges) {
         if (edge.getSource() == vertex) {
           nextVertices.add(edge.getDestination());
@@ -52,7 +52,17 @@ public class Graph<T extends Comparable<T>> {
     }
     if (this.isEquivalence()) {
       Set<Set<T>> eqSet = new HashSet<>();
-      for (T vertex : verticies) {
+      // for (T vertex : verticies) {
+      //   Set<T> eqClass = getEquivalenceClass(vertex);
+      //   if (!eqSet.contains(eqClass)) {
+      //     eqSet.add(eqClass);
+      //   }
+      // }
+      // for (Set<T> eqClass : eqSet) {
+      //   T root = Collections.min(eqClass);
+      //   roots.add(root);
+      for (T vertex : adjacency.keySet()) {
+
         Set<T> eqClass = getEquivalenceClass(vertex);
         if (!eqSet.contains(eqClass)) {
           eqSet.add(eqClass);
@@ -162,34 +172,30 @@ public class Graph<T extends Comparable<T>> {
 
   public List<T> iterativeBreadthFirstSearch() {
     List<T> visitedNodes = new ArrayList<>();
-    List<T> recentlyVisitedNodes = new ArrayList<>();
-    Queue<T> queue = new Queue<>();
+    Queue<T> queue = new Queue<T>();
     Set<T> roots = getRoots();
+
     for (T vertex : roots) {
       if (!visitedNodes.contains(vertex)) {
         queue.enqueue(vertex);
         visitedNodes.add(vertex);
+
         while (!queue.isEmpty()) {
-          T current = queue.dequeue();
-          if (!recentlyVisitedNodes.contains(current)) {
-            recentlyVisitedNodes.add(current);
-          }
-          for (Edge<T> edge : edges) {
-            if (edge.getSource().equals(current)
-                && !recentlyVisitedNodes.contains(edge.getDestination())) {
-              queue.enqueue(edge.getDestination());
-              recentlyVisitedNodes.add(edge.getDestination());
-            }
-          }
-          Collections.sort(recentlyVisitedNodes);
-          for (T node : recentlyVisitedNodes) {
-            if (!visitedNodes.contains(node)) {
-              visitedNodes.add(node);
+          T current = queue.peek();
+          queue.dequeue();
+          List<T> destinationNodes = adjacency.get(current);
+          if (destinationNodes != null) {
+            for (T destinationNode : destinationNodes) {
+              if (!visitedNodes.contains(destinationNode)) {
+                visitedNodes.add(destinationNode);
+                queue.enqueue(destinationNode);
+              }
             }
           }
         }
       }
     }
+
     return visitedNodes;
   }
 

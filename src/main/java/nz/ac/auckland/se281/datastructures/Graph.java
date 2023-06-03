@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -38,7 +38,8 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public Set<T> getRoots() {
-    Set<T> roots = new HashSet<T>();
+    ArrayList<T> roots = new ArrayList<T>();
+    Set<T> finalRoots = new LinkedHashSet<T>();
     for (T vertex : verticies) {
       boolean isRoot = true;
       for (Edge<T> edge : edges) {
@@ -51,7 +52,7 @@ public class Graph<T extends Comparable<T>> {
       }
     }
     if (this.isEquivalence()) {
-      Set<Set<T>> eqSet = new HashSet<>();
+      Set<Set<T>> eqSet = new LinkedHashSet<>();
       // for (T vertex : verticies) {
       //   Set<T> eqClass = getEquivalenceClass(vertex);
       //   if (!eqSet.contains(eqClass)) {
@@ -73,7 +74,11 @@ public class Graph<T extends Comparable<T>> {
         roots.add(root);
       }
     }
-    return roots;
+    roots.sort(Comparator.comparing(vertices2 -> Integer.parseInt(vertices2.toString())));
+    for (T root : roots) {
+      finalRoots.add(root);
+    }
+    return finalRoots;
   }
 
   public boolean isReflexive() {
@@ -146,9 +151,10 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public Set<T> getEquivalenceClass(T vertex) {
-    Set<T> eqClass = new HashSet<>();
+    Set<T> eqClassSet = new LinkedHashSet<>();
+    ArrayList<T> eqClass = new ArrayList<>();
     if (!isEquivalence()) {
-      return eqClass;
+      return eqClassSet;
     } else {
       eqClass.add(vertex);
       boolean moreVerticiesToCheck = true;
@@ -167,7 +173,11 @@ public class Graph<T extends Comparable<T>> {
       }
     }
 
-    return eqClass;
+    eqClass.sort(Comparator.comparing(vertices2 -> Integer.parseInt(vertices2.toString())));
+    for (T vertex2 : eqClass) {
+      eqClassSet.add(vertex2);
+    }
+    return eqClassSet;
   }
 
   public List<T> iterativeBreadthFirstSearch() {

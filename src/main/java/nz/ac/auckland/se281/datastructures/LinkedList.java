@@ -22,6 +22,18 @@ public class LinkedList<T> {
     }
   }
 
+  public void addFirst(T data) {
+    Node<T> newNode = new Node<>(data);
+    if (head == null) {
+      head = newNode;
+      tail = newNode;
+    } else {
+      newNode.setNext(head);
+      head.setPrev(newNode);
+      head = newNode;
+    }
+  }
+
   public T getFirst() {
     return head.getData();
   }

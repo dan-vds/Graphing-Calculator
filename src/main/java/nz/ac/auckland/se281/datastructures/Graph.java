@@ -210,8 +210,33 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public List<T> iterativeDepthFirstSearch() {
-    // TODO: Task 2.
-    throw new UnsupportedOperationException();
+    List<T> visitedNodes = new ArrayList<>();
+    Stack<T> stack = new Stack<>();
+    Set<T> roots = getRoots();
+
+    for (T vertex : roots) {
+      if (!visitedNodes.contains(vertex)) {
+        stack.push(vertex);
+
+        while (!stack.isEmpty()) {
+          T current = stack.pop();
+          if (!visitedNodes.contains(current)) {
+            visitedNodes.add(current);
+          }
+          List<T> destinationNodes = adjacency.get(current);
+          if (destinationNodes != null) {
+            for (int i = destinationNodes.size() - 1; i >= 0; i--) {
+              T destinationNode = destinationNodes.get(i);
+              if (!visitedNodes.contains(destinationNode)) {
+                stack.push(destinationNode);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return visitedNodes;
   }
 
   public List<T> recursiveBreadthFirstSearch() {

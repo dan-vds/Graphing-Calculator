@@ -8,7 +8,7 @@ public class Stack<T> {
   }
 
   public void push(T data) {
-    stack.add(data);
+    stack.addFirst(data);
   }
 
   public T pop() {

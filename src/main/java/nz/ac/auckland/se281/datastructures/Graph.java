@@ -240,8 +240,40 @@ public class Graph<T extends Comparable<T>> {
   }
 
   public List<T> recursiveBreadthFirstSearch() {
-    // TODO: Task 3.
-    throw new UnsupportedOperationException();
+    List<T> visitedNodes = new ArrayList<>();
+    Set<T> roots = getRoots();
+    Queue<T> queue = new Queue<>();
+
+    for (T vertex : roots) {
+      if (!visitedNodes.contains(vertex)) {
+        queue.enqueue(vertex);
+        visitedNodes.add(vertex);
+        recursiveBFS(queue, visitedNodes);
+      }
+    }
+
+    return visitedNodes;
+  }
+
+  private void recursiveBFS(Queue<T> queue, List<T> visitedNodes) {
+    if (queue.isEmpty()) {
+      return;
+    }
+
+    T current = queue.peek();
+    queue.dequeue();
+    List<T> destinationNodes = adjacency.get(current);
+
+    if (destinationNodes != null) {
+      for (T destinationNode : destinationNodes) {
+        if (!visitedNodes.contains(destinationNode)) {
+          queue.enqueue(destinationNode);
+          visitedNodes.add(destinationNode);
+        }
+      }
+    }
+
+    recursiveBFS(queue, visitedNodes);
   }
 
   public List<T> recursiveDepthFirstSearch() {

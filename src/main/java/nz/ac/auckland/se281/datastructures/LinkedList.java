@@ -1,11 +1,16 @@
 package nz.ac.auckland.se281.datastructures;
 
+/**
+ * A class representing a linked list data structure.
+ *
+ * @param <T> the type of data stored in the linked list.
+ */
 public class LinkedList<T> {
 
   private Node<T> head;
   private Node<T> tail;
 
-  /** Constructor for LinkedList, initialises head and tail as null */
+  /** Constructor for LinkedList, initialises head and tail as null. */
   public LinkedList() {
     // initial head and tail set to null
     head = null;
@@ -113,19 +118,22 @@ public class LinkedList<T> {
    */
   @Override
   public String toString() {
-    // create a String representation of the list
-    String result = "[";
+    // create a StringBuilder to build the String representation of the list
+    StringBuilder sb = new StringBuilder();
+    sb.append("[");
+
     if (head != null && tail != null) {
       Node<T> n = head;
-      // iterate through the list, adding each node to the String
+      // iterate through the list, appending each node to the StringBuilder
       while (n != tail) {
-        result += n.toString() + ", ";
+        sb.append(n.toString()).append(", ");
         n = n.getNext();
       }
-      result += n.toString();
+      sb.append(n.toString());
     }
-    // close the String and return it
-    result += "]";
-    return result;
+
+    // close the StringBuilder and return the resulting String
+    sb.append("]");
+    return sb.toString();
   }
 }

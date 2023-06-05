@@ -1,5 +1,10 @@
 package nz.ac.auckland.se281.datastructures;
 
+/**
+ * A class representing a stack data structure.
+ *
+ * @param <T> the type of data stored in the stack.
+ */
 public class Stack<T> {
   private LinkedList<T> stack;
 

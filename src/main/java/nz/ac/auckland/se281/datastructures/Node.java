@@ -39,7 +39,7 @@ public class Node<T> {
   }
 
   /**
-   * Gets the next node.
+   * Gets the next node from the current node.
    *
    * @return the next node.
    */
@@ -49,7 +49,7 @@ public class Node<T> {
   }
 
   /**
-   * Sets the next node.
+   * Sets the next node for the current node.
    *
    * @param next the next node.
    */
@@ -59,7 +59,7 @@ public class Node<T> {
   }
 
   /**
-   * Gets the previous node.
+   * Gets the previous node from the current node.
    *
    * @return the previous node.
    */
@@ -69,7 +69,7 @@ public class Node<T> {
   }
 
   /**
-   * Sets the previous node.
+   * Sets the previous node of the current node.
    *
    * @param prev the previous node.
    */

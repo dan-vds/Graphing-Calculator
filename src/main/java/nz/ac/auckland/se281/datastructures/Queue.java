@@ -1,12 +1,17 @@
 package nz.ac.auckland.se281.datastructures;
 
+/**
+ * A class representing a queue data structure.
+ *
+ * @param <T> the type of data stored in the queue.
+ */
 public class Queue<T> {
 
   private LinkedList<T> queue;
 
   /** Constructor for Queue, initialises queue as a new LinkedList */
   public Queue() {
-    // initialise queue as a new LinkedList
+    // initialise queue as a new LinkedList.
     queue = new LinkedList<T>();
   }
 

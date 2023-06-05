@@ -207,10 +207,10 @@ public class Graph<T extends Comparable<T>> {
   }
 
   /**
-   * Gets the equivalence class of a vertex
+   * Gets the equivalence class of a vertex.
    *
-   * @param vertex the vertex to get the equivalence class of
-   * @return the set of the equivalence class of the vertex
+   * @param vertex the vertex to get the equivalence class of.
+   * @return the set of the equivalence class of the vertex.
    */
   public Set<T> getEquivalenceClass(T vertex) {
     // Creating a set of the equivalence class, and arraylist for individual equivalence classes
@@ -348,14 +348,14 @@ public class Graph<T extends Comparable<T>> {
         queue.enqueue(vertex);
         visitedNodes.add(vertex);
         // Calling the recursive breadth method
-        recursiveBreadth(queue, visitedNodes);
+        recursiveBreadthFirstSearchHelper(queue, visitedNodes);
       }
     }
     // Returning the visited nodes list
     return visitedNodes;
   }
 
-  private void recursiveBreadth(Queue<T> queue, List<T> visitedNodes) {
+  private void recursiveBreadthFirstSearchHelper(Queue<T> queue, List<T> visitedNodes) {
     // If the queue is empty, the method is returned
     if (queue.isEmpty()) {
       return;
@@ -377,7 +377,7 @@ public class Graph<T extends Comparable<T>> {
       }
     }
     // Calling the recursive breadth method
-    recursiveBreadth(queue, visitedNodes);
+    recursiveBreadthFirstSearchHelper(queue, visitedNodes);
   }
 
   /**
@@ -397,14 +397,14 @@ public class Graph<T extends Comparable<T>> {
       if (!visitedNodes.contains(vertex)) {
         stack.push(vertex);
         // Calling the recursive depth method
-        recursiveDepth(stack, visitedNodes);
+        recursiveDepthFirstSearchHelper(stack, visitedNodes);
       }
     }
     // Returning the visited nodes list
     return visitedNodes;
   }
 
-  private void recursiveDepth(Stack<T> stack, List<T> visitedNodes) {
+  private void recursiveDepthFirstSearchHelper(Stack<T> stack, List<T> visitedNodes) {
     // If the stack is empty, the method is returned
     if (stack.isEmpty()) {
       return;
@@ -427,6 +427,6 @@ public class Graph<T extends Comparable<T>> {
       }
     }
     // Calling the recursive depth method
-    recursiveDepth(stack, visitedNodes);
+    recursiveDepthFirstSearchHelper(stack, visitedNodes);
   }
 }

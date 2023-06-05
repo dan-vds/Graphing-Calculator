@@ -15,7 +15,7 @@ public class Queue<T> {
    * @param data the data to be stored in the new node
    */
   public void enqueue(T data) {
-    queue.addLast(data);
+    queue.add(data);
   }
 
   /**

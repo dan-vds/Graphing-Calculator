@@ -5,11 +5,17 @@ public class LinkedList<T> {
   private Node<T> head;
   private Node<T> tail;
 
+  /** Constructor for LinkedList, initialises head and tail as null */
   public LinkedList() {
     head = null;
     tail = null;
   }
 
+  /**
+   * Adds a new node to the end of the linked list
+   *
+   * @param data the data to be stored in the new node
+   */
   public void add(T data) {
     Node<T> newNode = new Node<>(data);
     if (head == null) {
@@ -22,6 +28,11 @@ public class LinkedList<T> {
     }
   }
 
+  /**
+   * Adds a new node to the start of the linked list
+   *
+   * @param data the data to be stored in the new node
+   */
   public void addFirst(T data) {
     Node<T> newNode = new Node<>(data);
     if (head == null) {
@@ -34,50 +45,20 @@ public class LinkedList<T> {
     }
   }
 
+  /**
+   * Returns the first node in the linked list
+   *
+   * @return the data stored in the first node
+   */
   public T getFirst() {
     return head.getData();
   }
 
-  public T get(int index) {
-    Node<T> n = head;
-    for (int i = 0; i <= index; i++) {
-      if (i == index) {
-        return n.getData();
-      }
-      n = n.getNext();
-    }
-    return null;
-  }
-
-  public void insert(int index, T data) {
-    Node<T> n = head;
-    for (int i = 0; i <= index; i++) {
-      if (i == index - 1) {
-        Node<T> newNode = new Node<T>(data);
-        newNode.setNext(n.getNext());
-        newNode.setPrev(n);
-        n.setNext(newNode);
-      }
-      n = n.getNext();
-    }
-  }
-
-  public T remove(int index) {
-    Node<T> n = head;
-    for (int i = 0; i <= index; i++) {
-      if (i == index) {
-        if (n != tail && n != head) {
-        } else if (n == tail) {
-          tail = n.getPrev();
-        } else if (n == head) {
-          head = n.getNext();
-        }
-      }
-      n = n.getNext();
-    }
-    return n.getData();
-  }
-
+  /**
+   * Computes the size of the LinkedList
+   *
+   * @return the size of the LinkedList
+   */
   public int size() {
     Node<T> n = head;
     int count = 0;
@@ -89,6 +70,11 @@ public class LinkedList<T> {
     return count;
   }
 
+  /**
+   * Checks if the LinkedList is empty
+   *
+   * @return true if the LinkedList is empty, false otherwise
+   */
   public boolean isEmpty() {
     if (head == null) {
       return true;
@@ -96,12 +82,22 @@ public class LinkedList<T> {
     return false;
   }
 
+  /**
+   * Removes the first node in the LinkedList
+   *
+   * @return the data stored in the first node
+   */
   public T removeFirst() {
     Node<T> n = head;
     head = n.getNext();
     return n.getData();
   }
 
+  /**
+   * Removes the last node in the LinkedList
+   *
+   * @return the data stored in the last node
+   */
   public void addLast(T data) {
     Node<T> newNode = new Node<T>(data);
     if (head == null) {
@@ -112,22 +108,6 @@ public class LinkedList<T> {
       tail.setNext(newNode);
       tail = newNode;
     }
-  }
-
-  public int indexOf(T data) {
-    Node<T> n = head;
-    int count = 0;
-    while (n != tail) {
-      if (n.getData() == data) {
-        return count;
-      }
-      count++;
-      n = n.getNext();
-    }
-    if (tail.getData() == data) {
-      return count;
-    }
-    return -1;
   }
 
   @Override

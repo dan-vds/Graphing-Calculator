@@ -1,5 +1,10 @@
 package nz.ac.auckland.se281.datastructures;
 
+/**
+ * A class representing a node in a linked list.
+ *
+ * @param <T> the type of data stored in the node.
+ */
 public class Node<T> {
 
   // declaring instance variables for data stored, next and previous nodes

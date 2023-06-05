@@ -9,7 +9,7 @@ public class Queue<T> {
 
   private LinkedList<T> queue;
 
-  /** Constructor for Queue, initialises queue as a new LinkedList */
+  /** Constructor for Queue, initialises queue as a new LinkedList. */
   public Queue() {
     // initialise queue as a new LinkedList.
     queue = new LinkedList<T>();

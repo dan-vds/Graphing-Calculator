@@ -21,6 +21,12 @@ public class Graph<T extends Comparable<T>> {
   private Set<Edge<T>> edges;
   private HashMap<T, ArrayList<T>> adjacency;
 
+  /**
+   * Constructor for Graph
+   *
+   * @param verticies verticies of the graph that has been created
+   * @param edges edges of the graph that has been created
+   */
   public Graph(Set<T> verticies, Set<Edge<T>> edges) {
     this.verticies = verticies;
     this.edges = edges;
@@ -37,6 +43,11 @@ public class Graph<T extends Comparable<T>> {
     }
   }
 
+  /**
+   * Computes the set of roots in a graph
+   *
+   * @return the set of root verticies in the graph.
+   */
   public Set<T> getRoots() {
     ArrayList<T> roots = new ArrayList<T>();
     Set<T> finalRoots = new LinkedHashSet<T>();
@@ -53,15 +64,6 @@ public class Graph<T extends Comparable<T>> {
     }
     if (this.isEquivalence()) {
       Set<Set<T>> eqSet = new LinkedHashSet<>();
-      // for (T vertex : verticies) {
-      //   Set<T> eqClass = getEquivalenceClass(vertex);
-      //   if (!eqSet.contains(eqClass)) {
-      //     eqSet.add(eqClass);
-      //   }
-      // }
-      // for (Set<T> eqClass : eqSet) {
-      //   T root = Collections.min(eqClass);
-      //   roots.add(root);
       for (T vertex : adjacency.keySet()) {
 
         Set<T> eqClass = getEquivalenceClass(vertex);
@@ -81,6 +83,11 @@ public class Graph<T extends Comparable<T>> {
     return finalRoots;
   }
 
+  /**
+   * Checks if the graph is a reflexive graph
+   *
+   * @return returns true if the graph is reflexive, false otherwise
+   */
   public boolean isReflexive() {
     for (T vertex : verticies) {
       Boolean hasLoop = false;
@@ -96,6 +103,11 @@ public class Graph<T extends Comparable<T>> {
     return true;
   }
 
+  /**
+   * Checks if the graph is a symmetric graph
+   *
+   * @return returns true if the graph is symmetric, false otherwise
+   */
   public boolean isSymmetric() {
     for (Edge<T> edge : edges) {
       Boolean hasReturn = false;
@@ -112,6 +124,11 @@ public class Graph<T extends Comparable<T>> {
     return true;
   }
 
+  /**
+   * Checks if the graph is a transitive graph
+   *
+   * @return returns true if the graph is transitive, false otherwise
+   */
   public boolean isTransitive() {
     for (Edge<T> edge : edges) {
       for (Edge<T> edge2 : edges) {
@@ -132,6 +149,11 @@ public class Graph<T extends Comparable<T>> {
     return true;
   }
 
+  /**
+   * Checks if the graph is a anti symmetric graph
+   *
+   * @return returns true if the graph is anti symmetric, false otherwise
+   */
   public boolean isAntiSymmetric() {
     for (Edge<T> edge : edges) {
       for (Edge<T> edge2 : edges) {
@@ -146,10 +168,21 @@ public class Graph<T extends Comparable<T>> {
     return true;
   }
 
+  /**
+   * Checks if the graph is a equivalence graph
+   *
+   * @return returns true if the graph is equivalence, false otherwise
+   */
   public boolean isEquivalence() {
     return isReflexive() && isSymmetric() && isTransitive();
   }
 
+  /**
+   * Gets the equivalence class of a vertex
+   *
+   * @param vertex the vertex to get the equivalence class of
+   * @return the set of the equivalence class of the vertex
+   */
   public Set<T> getEquivalenceClass(T vertex) {
     Set<T> eqClassSet = new LinkedHashSet<>();
     ArrayList<T> eqClass = new ArrayList<>();
@@ -180,6 +213,11 @@ public class Graph<T extends Comparable<T>> {
     return eqClassSet;
   }
 
+  /**
+   * Conducts an iterative breadth first search on the graph
+   *
+   * @return the list of verticies in the order they were visited
+   */
   public List<T> iterativeBreadthFirstSearch() {
     List<T> visitedNodes = new ArrayList<>();
     Queue<T> queue = new Queue<T>();
@@ -209,6 +247,11 @@ public class Graph<T extends Comparable<T>> {
     return visitedNodes;
   }
 
+  /**
+   * Conducts an iterative depth first search on the graph
+   *
+   * @return the list of verticies in the order they were visited
+   */
   public List<T> iterativeDepthFirstSearch() {
     List<T> visitedNodes = new ArrayList<>();
     Stack<T> stack = new Stack<>();
@@ -239,6 +282,11 @@ public class Graph<T extends Comparable<T>> {
     return visitedNodes;
   }
 
+  /**
+   * Conducts a recursive breadth first search on the graph
+   *
+   * @return the list of verticies in the order they were visited
+   */
   public List<T> recursiveBreadthFirstSearch() {
     List<T> visitedNodes = new ArrayList<>();
     Set<T> roots = getRoots();
@@ -276,8 +324,46 @@ public class Graph<T extends Comparable<T>> {
     recursiveBFS(queue, visitedNodes);
   }
 
+  /**
+   * Conducts a recursive depth first search on the graph
+   *
+   * @return the list of verticies in the order they were visited
+   */
   public List<T> recursiveDepthFirstSearch() {
-    // TODO: Task 3.
-    throw new UnsupportedOperationException();
+    List<T> visitedNodes = new ArrayList<>();
+    Set<T> roots = getRoots();
+    Stack<T> stack = new Stack<>();
+
+    for (T vertex : roots) {
+      if (!visitedNodes.contains(vertex)) {
+        stack.push(vertex);
+        recursiveDFS(stack, visitedNodes);
+      }
+    }
+
+    return visitedNodes;
+  }
+
+  private void recursiveDFS(Stack<T> stack, List<T> visitedNodes) {
+    if (stack.isEmpty()) {
+      return;
+    }
+
+    T current = stack.pop();
+    if (!visitedNodes.contains(current)) {
+      visitedNodes.add(current);
+    }
+    List<T> destinationNodes = adjacency.get(current);
+
+    if (destinationNodes != null) {
+      for (int i = destinationNodes.size() - 1; i >= 0; i--) {
+        T destinationNode = destinationNodes.get(i);
+        if (!visitedNodes.contains(destinationNode)) {
+          stack.push(destinationNode);
+        }
+      }
+    }
+
+    recursiveDFS(stack, visitedNodes);
   }
 }

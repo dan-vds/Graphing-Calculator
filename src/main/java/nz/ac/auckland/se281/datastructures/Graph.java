@@ -216,7 +216,7 @@ public class Graph<T extends Comparable<T>> {
     // Creating a set of the equivalence class, and arraylist for individual equivalence classes
     Set<T> eqClassSet = new LinkedHashSet<>();
     ArrayList<T> eqClass = new ArrayList<>();
-    if (!isEquivalence()) {
+    if (!isEquivalence() || verticies.contains(vertex) == false) {
       // If the graph is not equivalence, the equivalence class is just an empty set
       return eqClassSet;
     } else {
